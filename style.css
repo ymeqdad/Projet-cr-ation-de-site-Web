@@ -1,0 +1,42 @@
+#container {
+margin: 40px auto;
+overflow: hidden;
+width: 800px;
+}
+.column {
+float: left;
+width: 400px;
+
+}
+ul { 
+list-style-type: none; 
+}
+li { 
+list-style-type: none; 
+} 
+
+h1{
+	text-align: center;
+}
+label{
+	text-align: center;
+	color: blue;
+}
+body
+{
+   background-image: url(img/background.png);
+}
+[draggable=true] {
+-moz-user-select: none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+user-select: none;
+cursor:move;
+}
+li a:hover:after {
+content: ' (Mettre à la corbeille)';
+}
+
+.colorspan4{
+	background-color:red;
+}

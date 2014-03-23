@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+ <html lang="fr">
+ <head>
+	 <meta charset="utf-8" />
+	 <title>Template</title>
+	 
+	 <!-- Le styles -->
+	<!-- Intégration du CSS Bootstrap -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+
+	 <script type="text/javascript">
+		i=3;
+// A chaque fois que la page se recharge
+window.onload = function(e){ 
+	if ((!localStorage)||(!localStorage['todo-list-save']))
+	return;
+	var list = document.getElementById('todo-list');
+    list.innerHTML=localStorage['todo-list-save'];
+}
+		
+		
+		function addTache()
+		{
+			var ul = document.getElementById('todo-list');
+			newli=document.createElement("li");
+			
+			var text =document.getElementById('todo-form-add');
+			i=i+1;
+			newli.setAttribute("id",i);
+			//newli.setAttribute("draggable",true);
+			var j = i+0.5;
+			newli.innerHTML=text.value+'  '+'<img class="delete" src="img/delete.png" width="20px" draggable="true" dragonclick="deleteTache(event);" >';
+			ul.insertBefore(newli,ul.lastChild);
+		}
+
+		function deleteTache(e)
+		{
+			var li =e.target.parentNode;
+			var ul = document.getElementById('todo-list');
+			var rem = ul.removeChild(li);		
+		}
+		function saveTache(){
+		
+		//On efface les données du localStorage
+		localStorage.clear();
+		var element = document.getElementById('todo-list');
+		//On s'auvgarde le contenu
+		localStorage['todo-list-save'] = element.innerHTML;
+
+		}
+		
+		var elements = [];
+		function dragStart(event)
+		{
+
+		    var index = elements.indexOf(event.target.parentNode);
+		    if (index == -1) 
+		    {
+		        // not already existing in the array, add it now
+		        elements.push(event.target.parentNode);
+		        index = elements.length - 1;
+		    }
+		    event.dataTransfer.setData('index', index);
+		}
+
+
+		function dragOver(event)
+		{
+		    event.preventDefault();
+		}
+
+		function dragDrop(event)
+		{
+			
+
+		    var element = elements[event.dataTransfer.getData('index')];
+		    
+		    var t = element.cloneNode(true);
+		    element.parentNode.appendChild(t);
+		    t.id += "-"; 
+		    var maDiv = document.getElementById('titre');
+		    maDiv.appendChild(t);
+		    return false;
+		}
+
+		function dragDropImg(event)
+		{
+			
+
+		    var element = elements[event.dataTransfer.getData('index')];
+		    
+		    var t = element.cloneNode(true);
+		    element.parentNode.appendChild(t);
+		    t.id += "-"; 
+		    var maDiv = document.getElementById('logo');
+		    maDiv.appendChild(t);
+		    return false;
+		}
+		function dragDropcorps(event)
+		{
+			
+
+		    var element = elements[event.dataTransfer.getData('index')];
+		    
+		    var t = element.cloneNode(true);
+		    element.parentNode.appendChild(t);
+		    t.id += "-"; 
+		    var maDiv = document.getElementById('corps');
+		    maDiv.appendChild(t);
+		    return false;
+		}
+	</script>
+ </head>
+
+ <body>
+ 	<div class="page-header" >
+
+	<center><h1>Web Designer</h1></center>
+	</div>
+
+<!-- the to-do list -->
+<div class="row">
+	<div class="span4" height="100%" style="background-color: gray;">boite à outils</br>
+		<ul style="list-style-type:none;">
+		<li style="list-style-type:none;" ><label id="label" draggable="true" ondragstart="dragStart(event)">Label...</label></br></li>
+		<li style="list-style-type:none;"><button id="button" draggable="true" ondragstart="dragStart(event)">bouton</button></br></li>
+		<li style="list-style-type:none;" ><textarea id="textArea" draggable="true" ondragstart="dragStart(event)">Zone texte</textarea></br></li>
+		<li><div></div></br></li>
+		<li style="list-style-type:none;"><img  src="img/istia.png" width="60px" draggable="true" ondragstart="dragStart(event)" onclick="deleteTache(event);" /></li>
+		<li style="list-style-type:none;">element</br></li>
+		<li></br></li>
+		<li></br></li>
+		<li></br></li>
+		<li></br></li>
+		<li></br></li>
+		<li></br></li>
+		<li></br></li>
+		<li></br></li>
+		<li></br></li>
+		<li></br></li>
+		<li></br></li>
+		<li></br></li>
+		</ul>
+	</div>
+	<div class="span12">
+		 
+		<div class="container" style="min-height: 500px;  background-color:pink;" id="container">
+			<div class="row">
+				<div class="span2" id="logo" style="min-height: 100px; background-color:green;" dropzone="copy" 
+						ondragover="dragOver(event)" ondrop="dragDropImg(event)">
+				</div>
+				<div class="span10" id="titre" style="min-height: 100px; background-color:red; max-height:100px;" dropzone="copy" ondragover="dragOver(event)" ondrop="dragDrop(event)">
+				</div>
+				<div class="span12" id="corps" style="min-height: 400px; max-height:100px;" dropzone="copy" ondragover="dragOver(event)" ondrop="dragDropcorps(event)">
+				</div>
+			</div>
+		</div>
+
+		
+
+		
+	</div>
+
+</div>
+
+
+<div class="page-footer" id="titre" >
+
+	<center><h3>Istia 2013/2014</h3></center>
+	</div>
+
+ </body>
+
+</html>
